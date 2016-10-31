@@ -4,20 +4,18 @@ namespace Revan
 {
     class QuarterAccent : IAccent
     {
-        public Revan revan;
-        public IBulb display;
+        public IBulb bulb;
 
-        public QuarterAccent(Revan revan, ROBulb display)
+        public QuarterAccent(IBulb bulb)
         {
-            this.revan = revan;
-            this.display = display;
+            this.bulb = bulb;
         }
 
-        IBulb IAccent.Display
+        IBulb IAccent.Bulb
         {
             get
             {
-                return this.display;
+                return this.bulb;
             }
         }
 

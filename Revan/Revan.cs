@@ -14,19 +14,14 @@ namespace Revan
         IFormatter formatter;
         IAccent accent;
 
-        public int mod;
-        public string output;
-
         public Revan()
         {
             // for now we will set the mod to 5
-            this.mod = 5;
-
             this.display = new YOBulb();
-            this.encoder = new StandardEncoder(this);
-            this.parser = new StandardParser(this);
-            this.formatter = new StandardFormatter(this);
-            this.accent = new QuarterAccent(this, new ROBulb());
+            this.encoder = new StandardEncoder(5);
+            this.parser = new StandardParser();
+            this.formatter = new StandardFormatter();
+            this.accent = new QuarterAccent(new ROBulb());
         }
 
         void write(int chunks, int upperBound, bool withoutAccent = false)
@@ -37,7 +32,7 @@ namespace Revan
                 {
                     if ((this.accent.check(i, upperBound)) && !withoutAccent)
                     {
-                        this.formatter.add(this.accent.Display.on());
+                        this.formatter.add(this.accent.Bulb.on());
                     } else
                     {
                         this.formatter.add(this.display.on());
@@ -54,9 +49,9 @@ namespace Revan
         // Display the time in the revan format
         public string show(int hour, int minute, int second)
         {
-            this.output = "";
-            Tuple<int, int> hourRows = this.encoder.calculateRows(24, this.mod);
-            Tuple<int, int> minuteRows = this.encoder.calculateRows(60, this.mod);
+            this.formatter.reset();
+            Tuple<int, int> hourRows = this.encoder.calculateRows(24);
+            Tuple<int, int> minuteRows = this.encoder.calculateRows(60);
             Tuple<int, int> hourChunks = this.encoder.encode(hour);
             Tuple<int, int> minuteChunks = this.encoder.encode(minute);
 
@@ -84,21 +79,41 @@ namespace Revan
             this.formatter.addBuffer();
 
 
-            return this.output; 
+            return this.formatter.Output;
         }
 
         public string parse(Object rawString)
         {
-            this.output = "";
-
             HMS hms = this.parser.parse(rawString);
-
             return show(hms.hour, hms.minute, hms.second);
         }
 
-        public void setParser(IParser newParser)
+
+        // Defining the getters and setters to swap out poritions of the display logic
+        public IParser Parser
         {
-            this.parser = newParser;
+            get { return this.parser; }
+            set { this.parser = value; }
+        }
+        public IBulb Bulb
+        {
+            get { return this.display; }
+            set { this.display = value; }
+        }
+        public IAccent Accent
+        {
+            get { return this.accent; }
+            set { this.accent = value; }
+        }
+        public IFormatter Formatter
+        {
+            get { return this.formatter; }
+            set { this.formatter = value; }
+        }
+        public IEncoder Encoder
+        {
+            get { return this.encoder; }
+            set { this.encoder = value; }
         }
     }
 }

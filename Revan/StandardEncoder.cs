@@ -4,11 +4,11 @@ namespace Revan
 {
     internal class StandardEncoder : IEncoder
     {
-        private Revan revan;
+        public int mod;
 
-        public StandardEncoder(Revan revan)
+        public StandardEncoder(int mod)
         {
-            this.revan = revan;
+            this.mod = mod;
         }
 
         public Tuple<int, int> encode(int value)
@@ -16,7 +16,7 @@ namespace Revan
             int mods = 0;
             int units = 0;
 
-            while (value % this.revan.mod != 0)
+            while (value % this.mod != 0)
             {
                 value -= 1;
                 units += 1;
@@ -24,25 +24,25 @@ namespace Revan
 
             while (value != 0)
             {
-                value -= this.revan.mod;
+                value -= this.mod;
                 mods += 1;
             }
 
             return Tuple.Create(mods, units);
         }
 
-        public Tuple<int, int> calculateRows(int amount, int mod)
+        public Tuple<int, int> calculateRows(int amount)
         {
             int top, bottom;
 
-            if (amount % mod == 0)
+            if (amount % this.mod == 0)
             {
-                top = (amount / mod) - 1;
-                bottom = mod - 1;
+                top = (amount / this.mod) - 1;
+                bottom = this.mod - 1;
             } else
             {
-                top = (amount - (amount % mod)) / 5;
-                bottom = mod - 1;
+                top = (amount - (amount % this.mod)) / 5;
+                bottom = this.mod - 1;
             }
 
             return Tuple.Create(top, bottom);

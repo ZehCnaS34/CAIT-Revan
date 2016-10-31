@@ -1,8 +1,8 @@
 ﻿namespace Revan
 {
-    interface IAccent
+    public interface IAccent
     {
-        IBulb Display { get; }
+        IBulb Bulb { get; }
 
         bool check(int i, int upperBound);
     }

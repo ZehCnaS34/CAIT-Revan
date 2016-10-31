@@ -1,24 +1,36 @@
 ﻿using System;
+using System.Text;
 
 namespace Revan
 {
     class StandardFormatter : IFormatter
     {
-        private Revan revan;
+        private StringBuilder output;
 
-        public StandardFormatter(Revan revan)
+        public StandardFormatter()
         {
-            this.revan = revan;
+            this.output = new StringBuilder();
         }
 
         public void add(string p)
         {
-            this.revan.output += p;
+            this.output.Append(p);
         }
 
         public void addBuffer()
         {
-            this.revan.output += " ";
+            this.output.Append(" ");
         }
+
+        public void reset()
+        {
+            this.output.Clear();
+        }
+
+        public string Output
+        {
+            get { return this.output.ToString(); }
+        }
+        
     }
 }

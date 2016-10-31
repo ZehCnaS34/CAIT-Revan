@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Revan
 {
@@ -10,13 +7,16 @@ namespace Revan
     {
         static void Main(string[] args)
         {
+
             var rv = new Revan();
-            rv.setParser(new CSParser(rv));
+            // The Default parser
+            // rv.setParser(new CSParser(rv)); // Uncomment this line to enable C#'s DateTimeParser
+            // rv.Parser = new CSParser(rv);
 
             Console.WriteLine("Please enter the time in a 24-hour format [hh:mm:ss]: ");
-            // string timeString = Console.ReadLine();
+            string timeString = Console.ReadLine();
 
-            Console.WriteLine(rv.parse(DateTime.Now));
+            Console.WriteLine(rv.parse(timeString));
 
             Console.WriteLine("\n\nPress enter to quit.");
             Console.ReadLine();

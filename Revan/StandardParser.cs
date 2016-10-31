@@ -8,25 +8,32 @@ namespace Revan
 {
     class StandardParser : IParser
     {
-        Revan inst;
-        public StandardParser(Revan inst)
-        {
-            this.inst = inst;
-        }
-
+        /// <summary>
+        /// Contains the code to extract the hours, minutes, and seconds out of a clock.
+        /// </summary>
+        /// <param name="o">the date object</param>
+        /// <returns></returns>
         HMS IParser.parse(Object o)
         {
-            string input = (string)o;
-            char[] delim = { ':' };
-            HMS output = new HMS();
+            try
+            {
+                string input = (string)o;
 
-            string[] parts = input.Split(delim);
+                char[] delim = { ':' };
+                HMS output = new HMS();
 
-            output.hour = Int32.Parse(parts[0]);
-            output.minute = Int32.Parse(parts[1]);
-            output.second = Int32.Parse(parts[2]);
+                string[] parts = input.Split(delim);
 
-            return output;
+                output.hour = Int32.Parse(parts[0]);
+                output.minute = Int32.Parse(parts[1]);
+                output.second = Int32.Parse(parts[2]);
+
+                return output;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Revan
 {
-    public class Revan
+    public class RevanClock
     {
         private IBulb _bulb;
         private IEncoder encoder;
@@ -14,7 +14,7 @@ namespace Revan
         private IFormatter formatter;
         private IAccent accent;
 
-        public Revan()
+        public RevanClock()
         {
             // for now we will set the mod to 5
             this._bulb = new YOBulb();
@@ -79,7 +79,7 @@ namespace Revan
             write(minuteChunks.Item1, minuteRows.Item1);
             this.formatter.addBuffer();
             write(minuteChunks.Item2, minuteRows.Item2, true);
-            this.formatter.addBuffer();
+            //this.formatter.addBuffer();
 
 
             return this.formatter.Output;

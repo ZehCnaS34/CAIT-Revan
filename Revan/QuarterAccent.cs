@@ -2,7 +2,7 @@
 
 namespace Revan
 {
-    class QuarterAccent : IAccent
+    public class QuarterAccent : IAccent
     {
         public IBulb bulb;
 

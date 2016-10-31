@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Revan
 {
-    class StandardFormatter : IFormatter
+    public class StandardFormatter : IFormatter
     {
         private StringBuilder output;
 

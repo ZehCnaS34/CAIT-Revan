@@ -2,7 +2,7 @@
 
 namespace Revan
 {
-    class CSParser : IParser
+    public class CSParser : IParser
     {
         HMS IParser.parse(Object input)
         {

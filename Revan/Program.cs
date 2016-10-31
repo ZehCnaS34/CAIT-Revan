@@ -8,7 +8,7 @@ namespace Revan
         static void Main(string[] args)
         {
 
-            var rv = new Revan();
+            var rv = new RevanClock();
 
             // Toggle comment to change the parser to one that recognizes C#'s DateTime Class
             // rv.Parser = new CSParser();

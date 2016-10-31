@@ -2,7 +2,7 @@
 
 namespace Revan
 {
-    internal class StandardEncoder : IEncoder
+    public class StandardEncoder : IEncoder
     {
         // Mod represents the hour/minute chunks of the clock. The default clock
         // implementation uses mod=5.

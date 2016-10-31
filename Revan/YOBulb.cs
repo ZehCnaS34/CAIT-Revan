@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Revan
 {
-    class YOBulb : IBulb
+    public class YOBulb : IBulb
     {
         public string on()
         {

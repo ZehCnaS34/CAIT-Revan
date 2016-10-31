@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Revan
 {
-    class StandardParser : IParser
+    public class StandardParser : IParser
     {
         /// <summary>
         /// Contains the code to extract the hours, minutes, and seconds out of a clock.

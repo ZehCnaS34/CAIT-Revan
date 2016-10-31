@@ -1,6 +1,6 @@
 ﻿namespace Revan
 {
-    class ROBulb : IBulb
+    public class ROBulb : IBulb
     {
         public string on()
         {

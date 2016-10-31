@@ -4,12 +4,6 @@ namespace Revan
 {
     class CSParser : IParser
     {
-        Revan inst;
-        public CSParser(Revan inst)
-        {
-            this.inst = inst;
-        }
-
         HMS IParser.parse(Object input)
         {
             DateTime dt = (DateTime)input;

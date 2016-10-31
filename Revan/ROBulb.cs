@@ -2,12 +2,12 @@
 {
     class ROBulb : IBulb
     {
-        string IBulb.on()
+        public string on()
         {
             return "R";
         }
 
-        string IBulb.off()
+        public string off()
         {
             return "O";
         }

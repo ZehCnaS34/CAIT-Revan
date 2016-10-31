@@ -8,12 +8,12 @@ namespace Revan
 {
     class YOBulb : IBulb
     {
-        string IBulb.on()
+        public string on()
         {
             return "Y";
         }
 
-        string IBulb.off()
+        public string off()
         {
             return "O";
         }

@@ -19,11 +19,13 @@ namespace Revan
             }
         }
 
-        bool IAccent.check(int current, int max)
+        // Checks to see if the current index of the loop that called the method falls on a
+        // quarter depending on the upperBound
+        bool IAccent.check(int currentIndex, int upperBound)
         {
-            if ((Math.Ceiling(max*.25) == current) || 
-                (Math.Ceiling(max *.50) == current) || 
-                (Math.Ceiling(max *.75) == current))
+            if ((Math.Ceiling(upperBound * .25) == currentIndex) || 
+                (Math.Ceiling(upperBound * .50) == currentIndex) || 
+                (Math.Ceiling(upperBound * .75) == currentIndex))
             {
                 return true;
             }

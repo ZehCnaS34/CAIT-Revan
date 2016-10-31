@@ -8,22 +8,25 @@ namespace Revan
 {
     public class Revan
     {
-        IBulb display;
-        IEncoder encoder;
-        IParser parser;
-        IFormatter formatter;
-        IAccent accent;
+        private IBulb _bulb;
+        private IEncoder encoder;
+        private IParser parser;
+        private IFormatter formatter;
+        private IAccent accent;
 
         public Revan()
         {
             // for now we will set the mod to 5
-            this.display = new YOBulb();
+            this._bulb = new YOBulb();
             this.encoder = new StandardEncoder(5);
             this.parser = new StandardParser();
             this.formatter = new StandardFormatter();
             this.accent = new QuarterAccent(new ROBulb());
         }
 
+        // The write method uses the aggregate objects to write the bulbs to the formatter.
+        // chunks = number of ON bulbs
+        // upperBound = number of bulbs in the current row
         void write(int chunks, int upperBound, bool withoutAccent = false)
         {
             for (int i = 1; i <= upperBound; i++)
@@ -35,11 +38,11 @@ namespace Revan
                         this.formatter.add(this.accent.Bulb.on());
                     } else
                     {
-                        this.formatter.add(this.display.on());
+                        this.formatter.add(this._bulb.on());
                     }
                 } else
                 {
-                    this.formatter.add(this.display.off());
+                    this.formatter.add(this._bulb.off());
                 }
             }
         }
@@ -50,19 +53,19 @@ namespace Revan
         public string show(int hour, int minute, int second)
         {
             this.formatter.reset();
-            Tuple<int, int> hourRows = this.encoder.calculateRows(24);
-            Tuple<int, int> minuteRows = this.encoder.calculateRows(60);
+            Tuple<int, int> hourRows = this.encoder.calculateRowLength(24);
+            Tuple<int, int> minuteRows = this.encoder.calculateRowLength(60);
             Tuple<int, int> hourChunks = this.encoder.encode(hour);
             Tuple<int, int> minuteChunks = this.encoder.encode(minute);
 
             // The bulb at the top
             if (second % 2 == 0 || second == 0)
             {
-                this.formatter.add(this.display.on());
+                this.formatter.add(this._bulb.on());
                 this.formatter.addBuffer();
             } else
             {
-                this.formatter.add(this.display.off());
+                this.formatter.add(this._bulb.off());
                 this.formatter.addBuffer();
             }
 
@@ -82,9 +85,9 @@ namespace Revan
             return this.formatter.Output;
         }
 
-        public string parse(Object rawString)
+        public string parse(Object rawDate)
         {
-            HMS hms = this.parser.parse(rawString);
+            HMS hms = this.parser.parse(rawDate);
             return show(hms.hour, hms.minute, hms.second);
         }
 
@@ -97,8 +100,8 @@ namespace Revan
         }
         public IBulb Bulb
         {
-            get { return this.display; }
-            set { this.display = value; }
+            get { return this._bulb; }
+            set { this._bulb = value; }
         }
         public IAccent Accent
         {

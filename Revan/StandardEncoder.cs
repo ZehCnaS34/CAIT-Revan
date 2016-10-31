@@ -4,13 +4,17 @@ namespace Revan
 {
     internal class StandardEncoder : IEncoder
     {
-        public int mod;
+        // Mod represents the hour/minute chunks of the clock. The default clock
+        // implementation uses mod=5.
+        private int mod;
 
         public StandardEncoder(int mod)
         {
             this.mod = mod;
         }
 
+        // Encode calculates the number of lit bulbs according to the value specified in the
+        // arguments.
         public Tuple<int, int> encode(int value)
         {
             int mods = 0;
@@ -31,21 +35,22 @@ namespace Revan
             return Tuple.Create(mods, units);
         }
 
-        public Tuple<int, int> calculateRows(int amount)
+        // Calculates the length of the rows.
+        public Tuple<int, int> calculateRowLength(int amount)
         {
-            int top, bottom;
+            int topRow, bottomRow;
 
             if (amount % this.mod == 0)
             {
-                top = (amount / this.mod) - 1;
-                bottom = this.mod - 1;
+                topRow = (amount / this.mod) - 1;
+                bottomRow = this.mod - 1;
             } else
             {
-                top = (amount - (amount % this.mod)) / 5;
-                bottom = this.mod - 1;
+                topRow = (amount - (amount % this.mod)) / this.mod;
+                bottomRow = this.mod - 1;
             }
 
-            return Tuple.Create(top, bottom);
+            return Tuple.Create(topRow, bottomRow);
 
         }
     }
